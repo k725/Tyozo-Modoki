@@ -69,7 +69,7 @@ function main(){
 	<title>StarRainPicture</title>
 	
 	<link rel="icon" href="favicon.ico">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap.lightbox.css">
 	<style>
 		::selection{ background:#b0c4de; }
@@ -117,7 +117,7 @@ function main(){
 	</div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="js/bootstrap.lightbox.js"></script>
 </body>
 </html>
