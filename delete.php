@@ -1,57 +1,33 @@
 <?php
-function main(){
 	require_once('config.php');
 	
-	$all = 0;
-	$main = null;
-	$imglist = null;
-	$imgrand = array();
-	if (is_dir($dir) && $dh = opendir($dir)) {
-		while (($files = readdir($dh)) !== false) {
-			$file[] = $files;
-		}
-		
-		for($i=0;$i<count($file);$i++) {
-			if(preg_match('/\.png$/',$file[$i])){
-				$size = floor(filesize($file[$i]) / 1024);
-				if($color > $size){ // 50kb以下
-					$colorsize = 'success';
-				}else {
-					if($color2 < $size){ // 100kb以上
-						$colorsize = 'danger';
-					}else{
-						$colorsize = 'warning'; // 50kb以上
-					}
-				}
-				$imglist.= '
-					<div class="col-sm-12 col-md-2">
-						<a href="delete.php?file='.$file[$i].'"><span class="glyphicon glyphicon-trash"></span></a>
-						<div class="thumbnail">
-							<div class="imgbox">
-								<a href="'.$dir.$file[$i].'" class="thumbnail">
-									<img src="'.$dir.$file[$i].'" class="imgbox2">
-								</a>
-							</div>
-							<div class="caption" style="margin-top:5px;font-size:120%;">
-								<span class="label label-'.$colorsize.'">'.$size.'KB</span>
-							</div>
-						</div>
-					</div>';
-				$imgrand[] = $imglist;
-				$imglist = '';
-				$all++;
-			}
-		}
-		
-		closedir($dh);
-		$file = array();
-	}
+	$del = htmlspecialchars($_GET['file'], ENT_QUOTES);
+	$flag = htmlspecialchars($_GET['del'], ENT_QUOTES);
 	
-	for($i=0;$i<count($imgrand);$i++){
-		$main.= "$imgrand[$i]\n";
+	if(isset($del) && isset($flag) && $flag == 'true' && file_exists($dir.$del)){
+		chmod($dir.$del, 0777);
+		unlink($dir.$del);
+		$msg = array('Infomation','File delete done.');
+		$html = '<p>Success<br>'.$del.' delete.</p><a href="admin.php" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Return</a>';
+	}else{
+		if(isset($del) && $del != '' && file_exists($dir.$del)){
+			$msg = array('Infomation','File delete?');
+			$html = '
+			<div class="row">
+				<div class="col-sm-8 col-md-4">
+					<div class="thumbnail">
+						<img src="'.$del.'">
+					</div>
+					<a href="admin.php" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Return</a>
+					<a href="delete.php?file='.$del.'&del=true" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+				</div>
+			</div>';
+			
+		}else{
+			$msg = array('Error','undefined.');
+			$html = '<p>Error<br>return to main page.</p><a href="admin.php" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Return</a>';
+		}
 	}
-	return $main;
-}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -64,7 +40,6 @@ function main(){
 	
 	<link rel="icon" href="favicon.ico">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap.lightbox.css">
 	<style>
 		::selection{ background:#b0c4de; }
 		div.imgbox{ height: auto; width: auto; height: 155px; width: 100%; }
@@ -102,16 +77,12 @@ function main(){
 			</div>
 			<p>The Easiest Way to Capture My Screen<br>
 			Easy Share and Easy Delete.</p>
-			<div class="row">
-				<div class="thumbnails" data-toggle="lightbox">
-					<?php echo main();?>
-				</div>
-			</div>
+			<h2><?php echo $msg[0];?> <small><?php echo $msg[1];?></small></h2>
+			<?php echo $html;?>
 		</div>
 	</div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="js/bootstrap.lightbox.js"></script>
 </body>
 </html>
