@@ -1,8 +1,10 @@
 <?php
 	require_once('config.php');
 	
-	$del = htmlspecialchars($_GET['file'], ENT_QUOTES);
-	$flag = htmlspecialchars($_GET['del'], ENT_QUOTES);
+	if(isset($_GET['file']) && isset($_GET['del'])){
+		$del = htmlspecialchars($_GET['file'], ENT_QUOTES);
+		$flag = htmlspecialchars($_GET['del'], ENT_QUOTES);
+	}
 	
 	if(isset($del) && isset($flag) && $flag == 'true' && file_exists($dir.$del)){
 		chmod($dir.$del, 0777);
