@@ -13,7 +13,7 @@ function main(){
 		
 		for($i=0;$i<count($file);$i++) {
 			if(preg_match('/\.png$/',$file[$i])){
-				$size = floor(filesize($file[$i]) / 1024);
+				$size = floor(filesize($dir.$file[$i]) / 1024);
 				if($color > $size){ // 50kb以下
 					$colorsize = 'success';
 				}else {
