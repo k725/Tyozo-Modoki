@@ -1,8 +1,11 @@
 <?php
 	require_once('config.php');
 	
-	if(isset($_GET['file']) && isset($_GET['del'])){
+	if(isset($_GET['file'])){
 		$del = htmlspecialchars($_GET['file'], ENT_QUOTES);
+	}
+	
+	if(isset($_GET['del'])){
 		$flag = htmlspecialchars($_GET['del'], ENT_QUOTES);
 	}
 	
@@ -18,7 +21,7 @@
 			<div class="row">
 				<div class="col-sm-8 col-md-4">
 					<div class="thumbnail">
-						<img src="'.$del.'">
+						<img src="'.$dir.$del.'">
 					</div>
 					<a href="admin.php" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Return</a>
 					<a href="delete.php?file='.$del.'&del=true" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
