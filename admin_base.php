@@ -13,7 +13,7 @@ function main(){
 		
 		for($i=0;$i<count($file);$i++) {
 			if(preg_match('/\.png$/',$file[$i])){
-				$size = floor(filesize($dir.$file[$i]) / 1024);
+				$size = filesize($dir.$file[$i]) / 1024;
 				if($color > $size){ // 50kb以下
 					$colorsize = 'success';
 				}else {
@@ -24,25 +24,18 @@ function main(){
 					}
 				}
 				$imglist.= '
-					<div class="col-sm-12 col-md-2">
-						<a href="delete.php?file='.$file[$i].'"><span class="glyphicon glyphicon-trash"></span></a>
-						<div class="thumbnail">
-							<div class="imgbox">
-								<a href="'.$dir.$file[$i].'" class="thumbnail">
-									<img src="'.$dir.$file[$i].'" class="imgbox2">
-								</a>
-							</div>
-							<div class="caption" style="margin-top:5px;font-size:120%;">
-								<span class="label label-'.$colorsize.'">'.$size.'KB</span>
-							</div>
-						</div>
-					</div>';
+					<tr>
+						<td><a href="'.$dir.$file[$i].'">'.$file[$i].'</a></td>
+						<td><span class="label label-'.$colorsize.'">'.number_format($size,3).'KB</span></td>
+						<td>'.date('Y-m-d H:i.s',filectime($dir.$file[$i])).'</td>
+						<td><a href="delete.php?file='.$file[$i].'"><span class="glyphicon glyphicon-trash"></span></a></td>
+					</tr>';
 				$imgrand[] = $imglist;
 				$imglist = '';
 				$all++;
 			}
 		}
-		
+
 		closedir($dh);
 		$file = array();
 	}
@@ -64,11 +57,8 @@ function main(){
 	
 	<link rel="icon" href="favicon.ico">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap.lightbox.css">
 	<style>
 		::selection{ background:#b0c4de; }
-		div.imgbox{ height: auto; width: auto; height: 155px; width: 100%; }
-		img.imgbox2{ height: auto; width: auto; max-height: 100%; max-width: 100%; }
 	</style>
 </head>
 <body>
@@ -86,8 +76,8 @@ function main(){
 		
 		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="admin.php">Admin</a></li>
-				<li><a href="admin_base.php">Admin (TextBase)</a></li>
+				<li><a href="admin.php">Admin</a></li>
+				<li class="active"><a href="admin_base.php">Admin (TextBase)</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -104,8 +94,16 @@ function main(){
 			<p>The Easiest Way to Capture My Screen<br>
 			Easy Share and Easy Delete.</p>
 			<div class="row">
-				<div class="thumbnails" data-toggle="lightbox">
-					<?php echo main();?>
+				<div class="table-responsive">
+					<table class="table"> <!-- table-hover -->
+						<tr>
+							<th>FileName</th>
+							<th>FileSize</th>
+							<th>CreateDate</th>
+							<th>Delete</th>
+						</tr>
+						<?php echo main();?>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -113,6 +111,5 @@ function main(){
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="js/bootstrap.lightbox.js"></script>
 </body>
 </html>
