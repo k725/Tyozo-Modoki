@@ -25,7 +25,7 @@ function main(){
 				}
 				$imglist.= '
 					<tr>
-						<td><a href="'.$dir.$file[$i].'">'.$file[$i].'</a></td>
+						<td><a class="screenshot" rel="'.$dir.$file[$i].'" href="'.$dir.$file[$i].'">'.$file[$i].'</a></td>
 						<td><span class="label label-'.$colorsize.'">'.number_format($size,3).'KB</span></td>
 						<td>'.date('Y-m-d H:i.s',filectime($dir.$file[$i])).'</td>
 						<td><a href="delete.php?file='.$file[$i].'"><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -59,6 +59,7 @@ function main(){
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
 	<style>
 		::selection{ background:#b0c4de; }
+		#screenshot{ position:absolute; border-radius:5px; border:5px solid #333; display:none; }
 	</style>
 </head>
 <body>
@@ -111,5 +112,6 @@ function main(){
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
