@@ -3,19 +3,20 @@
 	
 	if(isset($_GET['file'])){
 		$del = htmlspecialchars($_GET['file'], ENT_QUOTES);
+		
 	}
-	
+
 	if(isset($_GET['del'])){
 		$flag = htmlspecialchars($_GET['del'], ENT_QUOTES);
 	}
-	
+
 	if(isset($del) && isset($flag) && $flag == 'true' && file_exists($dir.$del)){
 		chmod($dir.$del, 0777);
 		unlink($dir.$del);
 		$msg = array('Infomation','File delete done.');
 		$html = '<p>Success<br>'.$del.' delete.</p><a href="admin.php" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Return</a>';
 	}else{
-		if(isset($del) && $del != '' && file_exists($dir.$del)){
+		if(isset($del) && preg_match("/\.png$/", $del) && $del != '' && file_exists($dir.$del)){
 			$msg = array('Infomation','File delete?');
 			$html = '
 			<div class="row">
@@ -66,7 +67,8 @@
 		
 		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="admin.php">Admin</a></li>
+				<li><a href="admin.php">Admin</a></li>
+				<li><a href="admin_base.php">Admin (TextBase)</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -76,7 +78,6 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h1>StarRainPicture <small>Photo Gallery</small></h1>
-
 			<div class="page-header">
 				<h2>Save to Screenshot</h2>
 			</div>
