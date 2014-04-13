@@ -1,4 +1,4 @@
-Tyozo-Modoki
+Tyozo-Modoki [![Build Status](https://travis-ci.org/k725/Tyozo-Modoki.svg?branch=master)](https://travis-ci.org/k725/Tyozo-Modoki)
 ============
 
 Tyozoのパクリ(劣化バージョンだょ)  
