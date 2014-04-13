@@ -1,0 +1,8 @@
+language: php
+php:
+  - 5.5
+
+script: "php admin.php"
+
+notifications:
+  email: false
