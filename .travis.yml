@@ -2,7 +2,7 @@ language: php
 php:
   - 5.5
 
-script: "php admin.php"
+script: "php public/index.php"
 
 notifications:
   email: false

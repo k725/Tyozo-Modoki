@@ -1,9 +1,0 @@
-#THIS SAMPLE .HTACCESS FILE.
-#EDIT HERE.
-
-AuthUserFile /foo/bar/.htpasswd
-AuthName "StarRainPicture"
-AuthType Basic
-<Files ~ "(admin|delete)\.php$">
-require	valid-user
-</Files>

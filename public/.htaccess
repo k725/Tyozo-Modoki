@@ -1,0 +1,28 @@
+###################################################
+#
+# .htaccess sample file
+#
+###################################################
+
+###### EDIT HERE ######
+#AuthUserFile /foo/var/path/.htpasswd
+#######################
+AuthUserFile /home/ie-saba/www/iesaba.info/.htpasswd
+
+AuthName "Tyozo-Modoki"
+AuthType Basic
+<FilesMatch "^cp\.php$">
+	require valid-user
+</FilesMatch>
+
+Redirect 301 /favicon.ico /tyozo-modoki/client/logo.png
+Redirect 301 /apple-touch-icon.png /tyozo-modoki/client/logo.png
+Redirect 301 /apple-touch-icon-precomposed.png /tyozo-modoki/client/logo.png
+
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} ^(.*\.(jpg|png))$ [NC]
+RewriteCond %{REQUEST_URI} !^/images/*.*$
+RewriteRule ^(.*)$ /images/$1

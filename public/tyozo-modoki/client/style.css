@@ -1,0 +1,14 @@
+::selection {
+	background: #b0c4de;
+}
+
+.main {
+	padding-top: 40px;
+}
+
+#screenshot {
+	position: absolute;
+	border-radius: 5px;
+	border: 5px solid #333;
+	display: none;
+}
