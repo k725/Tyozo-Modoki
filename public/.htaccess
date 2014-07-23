@@ -5,9 +5,8 @@
 ###################################################
 
 ###### EDIT HERE ######
-#AuthUserFile /foo/var/path/.htpasswd
+AuthUserFile /foo/var/path/.htpasswd
 #######################
-AuthUserFile /home/ie-saba/www/iesaba.info/.htpasswd
 
 AuthName "Tyozo-Modoki"
 AuthType Basic
