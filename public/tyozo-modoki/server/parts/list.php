@@ -4,18 +4,32 @@
 		$baseDir  = Setting::ImageDirectory;
 		$html     = '';
 
-		if ( is_dir($baseDir) && $dh = opendir($baseDir) ) {
-			while ( ($f = readdir($dh)) !== false ) {
-				$files[] = $f;
+		if ( is_dir($baseDir) ) {
+			$path  = glob(rtrim($baseDir, '/') . '/*');
+			$files = array();
+			$ftmp  = array();
+
+			foreach ( $path as $file ) {
+				if ( is_file($file) ) {
+					$time    = filemtime($file);
+					$ftmp[]  = $time;
+					$files[] = array(
+						'time' => $time,
+						'name' => $file
+					);
+				}
 			}
 
-			foreach ( $files as $file ) {
-				$filePath       = $baseDir.$file;
-				$fileTimeFormat = date(Setting::DateTimeFormat, filemtime($filePath));
-				$fileSize       = (filesize($filePath) / 1024);
+			array_multisort($ftmp, SORT_DESC, $files);
+			unset($ftmp);
+
+			foreach ( $files as $key => $value ) {
+				$fileName       = $value['name'];
+				$fileTimeFormat = date(Setting::DateTimeFormat, $value['time']);
+				$fileSize       = (filesize($fileName) / 1024);
 				$fileSizeFormat = number_format($fileSize, 3);
 
-				if ( in_array(pathinfo($filePath, PATHINFO_EXTENSION), Setting::TargetExtention()) ) {
+				if ( in_array(pathinfo($fileName, PATHINFO_EXTENSION), Setting::TargetExtention()) ) {
 					if ( Setting::WarningSize > $fileSize ) {
 						$colorsize = 'success';
 					} else if ( Setting::DangerSize > $fileSize ) {
@@ -26,17 +40,16 @@
 
 					$html .= <<<HTML
 							<tr>
-								<td><a class="screenshot" rel="{$filePath}" href="{$filePath}">{$file}</a></td>
+								<td><a class="screenshot" rel="{$fileName}" href="{$fileName}">{$fileName}</a></td>
 								<td><span class="label label-{$colorsize}">{$fileSizeFormat}KB</span></td>
 								<td>{$fileTimeFormat}</td>
-								<td><span class="glyphicon glyphicon-trash delete" data-file="{$file}"></span></td>
+								<td><span class="glyphicon glyphicon-trash delete" data-file="{$fileName}"></span></td>
 							</tr>
 HTML;
 				}
 			}
 
-			closedir($dh);
-			unset($file);
+			unset($files);
 		}
 
 		return <<<HTML
