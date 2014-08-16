@@ -2,7 +2,7 @@ var tr;
 
 $('.delete').click(function(){
 	tr = $(this);
-	$('#model-img').attr('src', './images/' + $(this).data('file'));
+	$('#model-img').attr('src', './' + $(this).data('file'));
 	$('#model-dialog').modal('show');
 });
 

@@ -1,7 +1,7 @@
 <?php
 	function body()
 	{
-		$filePath = Setting::ImageDirectory.getParseHtml($_POST['file']);
+		$filePath = getParseHtml($_POST['file']);
 
 		if ( file_exists($filePath) ) {
 			if ( in_array(pathinfo($filePath, PATHINFO_EXTENSION), Setting::TargetExtention()) && unlink($filePath) ) {
