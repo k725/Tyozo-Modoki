@@ -1,19 +1,52 @@
 <?php
 	/**
-	 *
-	 * 
-	 *   _______                        __  __           _       _    _
-	 *  |__   __|                      |  \/  |         | |     | |  (_)
-	 *     | |_   _  ___ _______ ______| \  / | ___   __| | ___ | | ___
-	 *     | | | | |/ _ \_  / _ \______| |\/| |/ _ \ / _` |/ _ \| |/ / |
-	 *     | | |_| | (_) / / (_) |     | |  | | (_) | (_| | (_) |   <| |
-	 *     |_|\__, |\___/___\___/      |_|  |_|\___/ \__,_|\___/|_|\_\_|
-	 *         __/ |
-	 *        |___/
-	 *
-	 * 
+	 *   ______                              __  ___          __      __   _
+	 *  /_  __/_  ______  ____  ____        /  |/  /___  ____/ /___  / /__(_)
+	 *   / / / / / / __ \/_  / / __ \______/ /|_/ / __ \/ __  / __ \/ //_/ /
+	 *  / / / /_/ / /_/ / / /_/ /_/ /_____/ /  / / /_/ / /_/ / /_/ / ,< / /
+	 * /_/  \__, /\____/ /___/\____/     /_/  /_/\____/\__,_/\____/_/|_/_/
+	 *     /____/
 	 */
 	require_once(dirname(__FILE__).'/tyozo-modoki/server/settings.php');
 	require_once(dirname(__FILE__).'/tyozo-modoki/server/functions.php');
-	require_once(dirname(__FILE__).'/tyozo-modoki/server/template_header.php');
-	require_once(dirname(__FILE__).'/tyozo-modoki/server/template_footer.php');
+
+	switch ($_SERVER['REQUEST_URI'])
+	{
+		case '/':
+			require_once(dirname(__FILE__).'/tyozo-modoki/server/template.php');
+			break;
+
+		case '/upload':
+			if (basicAuth())
+			{
+				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/upload.php');
+			}
+			break;
+
+		case '/upload/json':
+			if (basicAuth())
+			{
+				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/upload.php');
+			}
+			break;
+
+		case '/delete':
+			if (basicAuth())
+			{
+				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/delete.php');
+			}
+			break;
+
+		case '/admin':
+			if (basicAuth())
+			{
+				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/list.php');
+				require_once(dirname(__FILE__).'/tyozo-modoki/server/template.php');
+			}
+			break;
+
+		default:
+			header('HTTP/1.1 404 Not Found');
+			echo Setting::NFoundMessage;
+			break;
+	}

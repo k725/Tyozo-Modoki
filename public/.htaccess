@@ -4,24 +4,23 @@
 #
 ###################################################
 
-###### EDIT HERE ######
-AuthUserFile /foo/var/path/.htpasswd
-#######################
-
-AuthName "Tyozo-Modoki"
-AuthType Basic
-<FilesMatch "^cp\.php$">
-	require valid-user
-</FilesMatch>
-
 Redirect 301 /favicon.ico /tyozo-modoki/client/logo.png
 Redirect 301 /apple-touch-icon.png /tyozo-modoki/client/logo.png
 Redirect 301 /apple-touch-icon-precomposed.png /tyozo-modoki/client/logo.png
 
 RewriteEngine on
 RewriteBase /
+
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} ^(.*\.(jpg|png))$ [NC]
 RewriteCond %{REQUEST_URI} !^/images/*.*$
 RewriteRule ^(.*)$ /images/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !^(.*\.(jpg|png))$ [NC]
+RewriteRule ^(.*)$ index.php
