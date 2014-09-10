@@ -7,7 +7,7 @@ Tyozo-Modoki [![Build Status](https://travis-ci.org/k725/Tyozo-Modoki.svg?branch
  - ナウい感じでファイルを消せます。
  - アップロードサーバも兼ねてます。
 
- 必要なものとかがあるので[Wiki][1]読んでください。
+必要なものとかがあるので[Wiki][1]読んでください。
 
 [Gyazo+][2]での設定例
 
