@@ -16,9 +16,9 @@
 	switch ($_SERVER['REQUEST_URI'])
 	{
 		case '/upload':
-			if (isset($_FILES['imagedata']['error']) ||
-				is_int($_FILES['imagedata']['error']) ||
-				move_uploaded_file($_FILES['imagedata']['tmp_name'], $filePath) ||
+			if (isset($_FILES['imagedata']['error']) &&
+				is_int($_FILES['imagedata']['error']) &&
+				move_uploaded_file($_FILES['imagedata']['tmp_name'], $filePath) &&
 				imageCreatePng($filePath, Setting::PngCompression))
 			{
 				exit($uri.$fileName);
