@@ -8,16 +8,25 @@
 	{
 		if (in_array($fileInfo['extension'], Setting::TargetExtention()) && unlink($filePath))
 		{
-			$json = array('Success' => true, 'Message' => 'Done.');
+			$json = array(
+				'success' => true,
+				'message' => 'Done.'
+			);
 		}
 		else
 		{
-			$json = array('Success' => false, 'Message' => 'Failed to remove.');
+			$json = array(
+				'success' => false,
+				'message' => 'Failed to remove.'
+			);
 		}
 	}
 	else
 	{
-		$json = array('Success' => false, 'Message' => 'File does not exist.');
+		$json = array(
+			'success' => false,
+			'message' => 'File does not exist.'
+		);
 	}
 
 	header('Content-Type: application/json; charset=utf-8');

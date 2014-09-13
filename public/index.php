@@ -17,32 +17,29 @@
 			break;
 
 		case '/upload':
-			if (basicAuth())
-			{
-				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/upload.php');
-			}
-			break;
-
 		case '/upload/json':
-			if (basicAuth())
+			if (basicAuth(Setting::LoginUser(), Setting::SiteTitle, Setting::AuthMessage))
 			{
 				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/upload.php');
 			}
+
 			break;
 
 		case '/delete':
-			if (basicAuth())
+			if (basicAuth(Setting::LoginUser(), Setting::SiteTitle, Setting::AuthMessage))
 			{
 				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/delete.php');
 			}
+
 			break;
 
 		case '/admin':
-			if (basicAuth())
+			if (basicAuth(Setting::LoginUser(), Setting::SiteTitle, Setting::AuthMessage))
 			{
 				require_once(dirname(__FILE__).'/tyozo-modoki/server/parts/list.php');
 				require_once(dirname(__FILE__).'/tyozo-modoki/server/template.php');
 			}
+
 			break;
 
 		default:

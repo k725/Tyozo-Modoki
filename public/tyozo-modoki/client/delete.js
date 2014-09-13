@@ -9,20 +9,20 @@ $(function() {
 
 	$('#model-img-delete').click(function() {
 		$.ajax({
-			type: 'POST',
-			url: '/delete',
-			dataType: 'json',
-			data: {
+			url      : '/delete',
+			type     : 'POST',
+			dataType : 'json',
+			data     : {
 				'file': $(tr).data('file')
 			}
 		}).done(function(data) {
-			if (data.Success) {
+			if (data.success) {
 				$('#model-dialog').modal('hide');
 				$(tr).closest('tr').hide('slow', function() {
 					$(tr).closest('tr').remove();
 				});
 			} else {
-				$('#modal-response').text(data.Message);
+				$('#modal-response').text(data.message);
 			}
 		}).fail(function(data) {
 			$('#modal-response').text('エラーが発生しました。' + data.status + ' - ' + data.statusText);

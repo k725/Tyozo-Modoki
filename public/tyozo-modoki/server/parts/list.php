@@ -64,7 +64,7 @@ HTML;
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<form id="ajaxform">
-								<input type="file" id="file" name="imagedata" style="display:none;">
+								<input type="file" id="file" name="imagedata" accept="image/gif,image/png,image/jpeg" style="display:none;">
 								<div class="input-group" id="file_div">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="button" id="file_select">

@@ -1,4 +1,6 @@
 $(function() {
+	var base64;
+
 	$('#submit').click(function() {
 		if ($('#file').val() == '') {
 			$('#file_div').addClass('has-error');
@@ -12,9 +14,14 @@ $(function() {
 
 		$('#file_progress').fadeIn(200);
 
-		$.ajax('/upload/json', {
-			async: true,
-			xhr: function() {
+		$.ajax({
+			url      : '/upload/json',
+			type     : 'POST',
+			dataType : 'json',
+			data     : {
+				'url' : base64
+			},
+			xhr      : function() {
 				var XHR = $.ajaxSettings.xhr();
 
 				if(XHR.upload) {
@@ -32,12 +39,7 @@ $(function() {
 				}
 
 				return XHR;
-			},
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: new FormData($('#ajaxform').get(0)),
-			dataType: 'json'
+			}
 		}).done(function(data) {
 			if (data.success) {
 				$('#file_progress').fadeOut(1000);
@@ -62,6 +64,16 @@ $(function() {
 
 	$('#file').change(function() {
 		$('#file_dummy').val($(this).val());
+
+		if (!this.files.length) return;
+
+		var file = this.files[0],
+			fr   = new FileReader();
+
+		fr.onload = function(event) {
+			base64 = event.target.result;
+		};
+		fr.readAsDataURL(file);
 	});
 
 	$('#file_select').click(function() {
