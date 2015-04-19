@@ -12,15 +12,13 @@ RewriteEngine on
 RewriteBase /
 
 RewriteCond %{HTTP:Authorization} ^(.*)
-RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} ^(.*\.(jpg|png))$ [NC]
-RewriteCond %{REQUEST_URI} !^/images/*.*$
-RewriteRule ^(.*)$ /images/$1
+RewriteCond %{REQUEST_URI} ^/[0-9A-Za-z]+\.png$ [NC]
+RewriteRule .* /images/$0 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !^(.*\.(jpg|png))$ [NC]
-RewriteRule ^(.*)$ index.php
+RewriteRule .* index.php [L]
